@@ -1,5 +1,7 @@
 # Neoantigen Prediction
 
+This repository contains code and models for predicting peptide-MHC binding affinity, an important step in identifying potential neoantigens for cancer immunotherapy. Neoantigens are tumor-specific antigens encoded by mutated genes that can be recognized by the immune system. Accurately predicting peptide-MHC binding is crucial for neoantigen identification.
+
 This repository contains two main directories for predicting neoantigens:
 
 ## Mutant Peptide Prediction
@@ -48,3 +50,12 @@ The `Model creation directories` contain code to create our own model based on t
 The ANN model is created based on the parameters found in MHC_flurry 2.0, ensuring it leverages valuable insights from the state-of-the-art tool to enhance its performance.
 
 Feel free to explore each directory for detailed instructions on data preparation, model training, and prediction procedures. Additional information can be found within the directories to aid you in utilizing and customizing the model according to your specific requirements.
+
+### Requirements
+
+Keras 2.11.0
+TensorFlow 2.11.0
+NumPy 1.23.5
+Pandas >= 1.3
+Scikit-learn 1.0
+Matplotlib 3.6.2
