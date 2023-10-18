@@ -23,12 +23,8 @@ from keras.models import Sequential, load_model
 from keras.wrappers.scikit_learn import KerasClassifier
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from six import StringIO
-from sklearn.metrics import (
-    classification_report,
-    confusion_matrix,
-    roc_auc_score,
-    roc_curve,
-)
+from sklearn.metrics import (classification_report, confusion_matrix,
+                             roc_auc_score, roc_curve)
 from sklearn.model_selection import cross_val_score, train_test_split
 from sklearn.utils import resample
 from tensorflow.keras import backend
