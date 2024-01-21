@@ -104,7 +104,8 @@ we need to combine keras to scikit_learn
 
 
 from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.model_selection import StratifiedKFold, cross_val_score, train_test_split
+from sklearn.model_selection import (StratifiedKFold, cross_val_score,
+                                     train_test_split)
 
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=7)
 classifier = KerasClassifier(build_fn=build_classifier, batch_size=50, epochs=200)
@@ -115,27 +116,27 @@ mean = accuracies.mean()
 variance = accuracies.std()
 
 
-## Use GridSearchCV to find the best parameter
-from sklearn.model_selection import GridSearchCV
+# ## Use GridSearchCV to find the best parameter
+# from sklearn.model_selection import GridSearchCV
 
-classifier = KerasClassifier(build_fn=build_classifier)
-# create dict to tune the hyper-parameter to find the best parameter
-parameters = {
-    "batch_size": [10, 25, 30],  # we can choose batch_size we want
-    "nb_epoch": [100, 200, 300],
-}  # tune the archticture of the ann
+# classifier = KerasClassifier(build_fn=build_classifier)
+# # create dict to tune the hyper-parameter to find the best parameter
+# parameters = {
+#     "batch_size": [10, 25, 30],  # we can choose batch_size we want
+#     "nb_epoch": [100, 200, 300],
+# }  # tune the archticture of the ann
 
-grid_search = GridSearchCV(
-    estimator=classifier,  # classifier = ANN
-    param_grid=parameters,  # test all combination
-    scoring="accuracy",
-    cv=5,  # k-fold validation
-)
+# grid_search = GridSearchCV(
+#     estimator=classifier,  # classifier = ANN
+#     param_grid=parameters,  # test all combination
+#     scoring="accuracy",
+#     cv=5,  # k-fold validation
+# )
 
-# Identify the best parameters for the model creation
-# overwrite the original grid_search
-grid_search = grid_search.fit(
-    X_train, y_train
-)  # fit the grid_search to the training set
-best_parameters = grid_search.best_params_
-best_accuracy = grid_search.best_score_
+# # Identify the best parameters for the model creation
+# # overwrite the original grid_search
+# grid_search = grid_search.fit(
+#     X_train, y_train
+# )  # fit the grid_search to the training set
+# best_parameters = grid_search.best_params_
+# best_accuracy = grid_search.best_score_

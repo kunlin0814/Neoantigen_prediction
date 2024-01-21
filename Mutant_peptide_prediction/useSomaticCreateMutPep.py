@@ -32,7 +32,7 @@ from Create_mut_peptide_modules import *
 ## you can specifiy the peptide length (here we create 8mer to 11 mer)
 nmer = list(range(8, 11))
 
-mut_file = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data\example_mut_file.txt"
+mut_file = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data\common_mut_sum.txt"
 
 ## you can choose some target genes or only you want to include all of the mutate genes
 target_gene = ""
@@ -68,6 +68,9 @@ if "Model_prediction" in mut_source_col:
 ## if the data derved from mutation prediction pipeline, then only grep somatic mutations from pipeline filtering
 elif "Status" in mut_source_col:
     mut_source = mut_source.loc[mut_source.Status.str.contains("Somatic", case=False)]
+else:
+    mut_source = mut_source
+
 ## only grep SNV to create mutant peptides
 mut_source = mut_source.loc[mut_source.Consequence == "nonsynonymous SNV"]
 if include_gene_list != [""]:
@@ -125,17 +128,17 @@ final_sum.to_csv(final_meta_table, sep="\t", index=False, header=True)
 final_sum.Peptide.to_csv(final_mut_peptide, sep="\n", index=False, header=None)
 
 
-mhc_flurry_support_allele = pd.read_csv(mhc_flurry_file, header=None)
-mhc_flurry_list = mhc_flurry_support_allele[
-    mhc_flurry_support_allele[0].str.contains("DLA")
-][0].to_list()
-mhc_flurry_list = set(mhc_flurry_list)
+# mhc_flurry_support_allele = pd.read_csv(mhc_flurry_file, header=None)
+# mhc_flurry_list = mhc_flurry_support_allele[
+#     mhc_flurry_support_allele[0].str.contains("DLA")
+# ][0].to_list()
+# mhc_flurry_list = set(mhc_flurry_list)
 
-for allele in mhc_flurry_list:
-    flurry_output = open(output_base + "/" + allele + "flurry_mut_peptide.txt", "w")
+# for allele in mhc_flurry_list:
+#     flurry_output = open(output_base + "/" + allele + "flurry_mut_peptide.txt", "w")
 
-    flurry_output.write("allele,peptide\n")
-    for peptide in final_sum.Peptide.to_list():
-        flurry_output.write(allele + "," + peptide + "\n")
+#     flurry_output.write("allele,peptide\n")
+#     for peptide in final_sum.Peptide.to_list():
+#         flurry_output.write(allele + "," + peptide + "\n")
 
-    flurry_output.close()
+#     flurry_output.close()
