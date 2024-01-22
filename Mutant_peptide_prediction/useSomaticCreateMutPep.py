@@ -23,14 +23,14 @@ import numpy as np
 import pandas as pd
 
 neo_antigen_module = (
-    r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\Mutant_peptide_prediction"
+    r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\Model_creation"
 )
 
 sys.path.append(neo_antigen_module)
 from Create_mut_peptide_modules import *
 
 ## you can specifiy the peptide length (here we create 8mer to 11 mer)
-nmer = list(range(8, 11))
+nmer = list(range(9,10 ))
 
 mut_file = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data\common_mut_sum.txt"
 

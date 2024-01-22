@@ -43,7 +43,8 @@ def makeSameLength(each_peptide):
     end = end + each_peptide[-len(each_peptide) :]
     return first + middle + end
 
-
+def split_word(word): 
+    return [char for char in word] 
 ### the random peptide is created from pan_cancer mutations, total are 100k random peptides, so that we don't have to create it again
 def importRandomPeptide(peptideData):
     with open(peptideData, "r") as f:
@@ -73,7 +74,7 @@ def extractbinder(dataset):
 
 def encodeWithBLOSUM62(amino_acids):
     ## a function that returns the blosum62 vector given a certain aa
-    return list(BLOSUM62_MATRIX[amino_acids].values)
+    return list(BLOSUM62_MATRIX_dict[amino_acids].values())
 
 
 def blosumEncoding(data):
@@ -93,15 +94,15 @@ def build_classifier():
     classifier = Sequential()  # use the sequential layer
     ## init = kernel_initializer
     classifier.add(
-        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=189)
+        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=945)
     )
     classifier.add(Dropout(rate=0.5))
     classifier.add(
-        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=189)
+        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=945)
     )
     classifier.add(Dropout(rate=0.5))
     classifier.add(
-        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=189)
+        Dense(units=80, kernel_initializer="uniform", activation="tanh", input_dim=945)
     )
     ## if we deal with more than 2 categories, the activation function needs to use softmax
     classifier.add(Dense(units=1, kernel_initializer="uniform", activation="sigmoid"))
@@ -232,3 +233,4 @@ BLOSUM62_MATRIX = (
     .astype("int8")
 )
 assert (BLOSUM62_MATRIX == BLOSUM62_MATRIX.T).all().all()
+BLOSUM62_MATRIX_dict = BLOSUM62_MATRIX.to_dict()

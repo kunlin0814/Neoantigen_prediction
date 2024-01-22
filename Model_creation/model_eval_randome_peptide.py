@@ -23,22 +23,13 @@ random_peptide_file = base + "/" + "Random100TwithoutBinder.txt"
 new_model = keras.models.load_model(base + "/" + model_name)
 
 ### create random peptide and turn into DataFrame
-randomPeptide = importRandomPeptide(random_peptide_file)
-predictRandom = blosumEncoding(randomPeptide).values
+randomPeptide = pd.read_csv(random_peptide_file,sep="\t",header=None)
+final_peptide = [split_word(makeSameLength(each_peptide)) for each_peptide in randomPeptide[0]]
+predictRandom = blosumEncoding(final_peptide).values
 
 ### Test the model performance with random dataset
 test_new_pred = new_model.predict(predictRandom)
 total_rank = (stats.rankdata(-test_new_pred, "dense") / len(test_new_pred)) * 100
-resultPeptide = np.array(["".join(randomPeptide[i]) for i in range(len(randomPeptide))])
+outputdf = pd.DataFrame({"Sequence": randomPeptide[0], "Total_rank": total_rank,"Prob":test_new_pred.flatten()})
 
-outputdf = pd.DataFrame({"Sequence": resultPeptide, "Total_rank": total_rank})
-
-writeOuput(
-    outputdf,
-    cutOff=top_binder,
-    outputName=base
-    + "/"
-    + "Blosum_"
-    + top_binder
-    + "_DLA88-50101_MHC_model_redict_result.txt",
-)
+outputdf.to_csv("Peptide_predict_results.txt",sep ="\t", index = False)

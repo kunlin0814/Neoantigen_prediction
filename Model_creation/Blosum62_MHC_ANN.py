@@ -5,6 +5,7 @@ This script will take a peptide binding data to create an ANN model.
 We can use this model to make an prediction and select the target rank as our binder (ex: top 1% binding as our target binder) and compare the motif between predicted peptides and actual peptides
 The ANN model is created based on the parameters found on the MHC_flurry 2.0
 
+The model can take peptides with length from 8-15 as training input data
 """
 import os
 import sys
@@ -19,10 +20,11 @@ val_size = 0.1
 base = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data"
 os.chdir(base)
 dataset = pd.read_csv(base + "/" + "Final_DLA88-50101_training_data.txt", sep="\t")
+peptides = dataset['peptide'].apply(lambda x:x.upper())
+final_peptide = [split_word(makeSameLength(each_peptide)) for each_peptide in peptides]
 total_data = extractdata(dataset)
-binderData = extractbinder(dataset)
 y = dataset.iloc[:, 2].values
-X = blosumEncoding(total_data).values
+X = blosumEncoding(final_peptide).values
 
 # from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 # Splitting the dataset into the Training set and Test set
