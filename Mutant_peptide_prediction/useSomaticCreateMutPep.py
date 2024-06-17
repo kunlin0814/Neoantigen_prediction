@@ -30,14 +30,14 @@ sys.path.append(neo_antigen_module)
 from Create_mut_peptide_modules import *
 
 ## you can specifiy the peptide length (here we create 8mer to 11 mer)
-nmer = list(range(9,10 ))
+nmer = list(range(8,15 ))
 
-mut_file = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data\common_mut_sum.txt"
+mut_file = r"D:\我的雲端硬碟\ForNeoGrant\Mutations\Total_mutation.txt"
 
 ## you can choose some target genes or only you want to include all of the mutate genes
 target_gene = ""
 
-output_base = r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\example_data"
+output_base = r"D:\我的雲端硬碟\ForNeoGrant\Mutations"
 
 ### necessary files
 data_source_folder = Path(
@@ -46,7 +46,7 @@ data_source_folder = Path(
 ## include random peptide
 random_peptide_file = data_source_folder / "Pan_cancer_random_peptide.txt"
 sequence_file = data_source_folder / "dog_gene_transcript_df_3.1.99.txt"
-mhc_flurry_file = data_source_folder / "Mhc_flurry_support_alleles.txt"
+mhc_flurry_file = data_source_folder / "Mhc_Flurry_Dogs_Alleles.txt"
 
 final_meta_table = output_base + "/" + "Mut_peptide_meta_table.txt"
 final_mut_peptide = output_base + "/" + "Mut_peptide.txt"
@@ -128,17 +128,17 @@ final_sum.to_csv(final_meta_table, sep="\t", index=False, header=True)
 final_sum.Peptide.to_csv(final_mut_peptide, sep="\n", index=False, header=None)
 
 
-# mhc_flurry_support_allele = pd.read_csv(mhc_flurry_file, header=None)
-# mhc_flurry_list = mhc_flurry_support_allele[
-#     mhc_flurry_support_allele[0].str.contains("DLA")
-# ][0].to_list()
-# mhc_flurry_list = set(mhc_flurry_list)
+mhc_flurry_support_allele = pd.read_csv(mhc_flurry_file, header=None)
+mhc_flurry_list = mhc_flurry_support_allele[
+    mhc_flurry_support_allele[0].str.contains("DLA")
+][0].to_list()
+mhc_flurry_list = set(mhc_flurry_list)
 
-# for allele in mhc_flurry_list:
-#     flurry_output = open(output_base + "/" + allele + "flurry_mut_peptide.txt", "w")
+for allele in mhc_flurry_list:
+    flurry_output = open(output_base + "/" + allele + "flurry_mut_peptide.txt", "w")
 
-#     flurry_output.write("allele,peptide\n")
-#     for peptide in final_sum.Peptide.to_list():
-#         flurry_output.write(allele + "," + peptide + "\n")
+    flurry_output.write("allele,peptide\n")
+    for peptide in final_sum.Peptide.to_list():
+        flurry_output.write(allele + "," + peptide + "\n")
 
-#     flurry_output.close()
+    flurry_output.close()
