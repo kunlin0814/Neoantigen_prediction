@@ -37,7 +37,7 @@ mut_file = r"D:\我的雲端硬碟\ForNeoGrant\Mutations\Total_mutation.txt"
 ## you can choose some target genes or only you want to include all of the mutate genes
 target_gene = ""
 
-output_base = r"D:\我的雲端硬碟\ForNeoGrant\Mutations"
+output_base = r"D:/我的雲端硬碟/ForNeoGrant/Mutations"
 
 ### necessary files
 data_source_folder = Path(
@@ -133,10 +133,11 @@ mhc_flurry_list = mhc_flurry_support_allele[
     mhc_flurry_support_allele[0].str.contains("DLA")
 ][0].to_list()
 mhc_flurry_list = set(mhc_flurry_list)
-
+if os.path.isdir(output_base + "/" + "Mhc_flurry_input")==False:
+    os.mkdir(output_base + "/" + "Mhc_flurry_input")
 for allele in mhc_flurry_list:
-    flurry_output = open(output_base + "/" + allele + "flurry_mut_peptide.txt", "w")
-
+    #allele = allele.replace("*", "_").replace(":", "_")
+    flurry_output = open(output_base + "/" + "Mhc_flurry_input" + "/" + allele + "_flurry_mut_peptide.txt", "w")
     flurry_output.write("allele,peptide\n")
     for peptide in final_sum.Peptide.to_list():
         flurry_output.write(allele + "," + peptide + "\n")
