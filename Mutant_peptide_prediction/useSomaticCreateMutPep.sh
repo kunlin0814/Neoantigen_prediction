@@ -9,6 +9,7 @@
 scripts='/work/szlab/Kun-Lin_pipeline/Allele_specific_model/Mutant_peptide_prediction'
 mut_file='/work/szlab/Kun-Lin_pipeline/Allele_specific_model/example_data/Total_mutation.txt'
 output_base='/scratch/kh31516/GR_neoantigen/source'
+mhc_flurry_allele='/work/szlab/Kun-Lin_pipeline/Allele_specific_model/mut_peptide_source/GR_flurry_allele.txt'
 
 source activate py38
 
@@ -18,8 +19,8 @@ source activate py38
 
 python $scripts/useSomaticCreateMutPep.py \
 ${mut_file} \
-${output_base}
-
+${output_base} \
+${mhc_flurry_allele}
 
 # mut_file = sys.argv[1]
 # output_base = sys.argv[2]

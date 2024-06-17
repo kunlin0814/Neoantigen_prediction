@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 
 neo_antigen_module = (
-    r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\Model_creation"
+    '/work/szlab/Kun-Lin_pipeline/Allele_specific_model/Model_creation'
 )
 
 sys.path.append(neo_antigen_module)
@@ -32,21 +32,21 @@ from Create_mut_peptide_modules import *
 ## you can specifiy the peptide length (here we create 8mer to 11 mer)
 nmer = list(range(8,15 ))
 
-mut_file = r"D:\我的雲端硬碟\ForNeoGrant\Mutations\Total_mutation.txt"
+mut_file = sys.argv[1]
 
 ## you can choose some target genes or only you want to include all of the mutate genes
 target_gene = ""
 
-output_base = r"D:/我的雲端硬碟/ForNeoGrant/Mutations"
+output_base = sys.argv[2]
 
 ### necessary files
 data_source_folder = Path(
-    r"C:\Users\abc73\Documents\GitHub\Neoantigen_prediction\mut_peptide_source"
+    '/work/szlab/Kun-Lin_pipeline/Allele_specific_model/mut_peptide_source'
 )
 ## include random peptide
 random_peptide_file = data_source_folder / "Pan_cancer_random_peptide.txt"
 sequence_file = data_source_folder / "dog_gene_transcript_df_3.1.99.txt"
-mhc_flurry_file = data_source_folder / "Mhc_Flurry_Dogs_Alleles.txt"
+mhc_flurry_file = sys.argv[3]
 
 final_meta_table = output_base + "/" + "Mut_peptide_meta_table.txt"
 final_mut_peptide = output_base + "/" + "Mut_peptide.txt"
@@ -135,6 +135,7 @@ mhc_flurry_list = mhc_flurry_support_allele[
 mhc_flurry_list = set(mhc_flurry_list)
 if os.path.isdir(output_base + "/" + "Mhc_flurry_input")==False:
     os.mkdir(output_base + "/" + "Mhc_flurry_input")
+    
 for allele in mhc_flurry_list:
     #allele = allele.replace("*", "_").replace(":", "_")
     flurry_output = open(output_base + "/" + "Mhc_flurry_input" + "/" + allele + "_flurry_mut_peptide.txt", "w")
