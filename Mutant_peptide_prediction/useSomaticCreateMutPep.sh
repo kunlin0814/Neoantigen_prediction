@@ -10,7 +10,7 @@ scripts='/work/szlab/Kun-Lin_pipeline/Allele_specific_model/Mutant_peptide_predi
 mut_file='/work/szlab/Kun-Lin_pipeline/Allele_specific_model/example_data/Total_mutation.txt'
 output_base='/scratch/kh31516/GR_neoantigen/source'
 
-conda activate py38
+source activate py38
 
 # file_pattern= sys.argv[1]
 # final_df_out = sys.argv[2]
