@@ -6,7 +6,7 @@ This repository contains two main directories for predicting neoantigens:
 
 ## Mutant Peptide Prediction
 
-The `Mutant_peptide_prediction` directory is designed to work with mutation data. It can derived from the TOSMIC package or your own mutation data. It generates mutant peptides from the given mutation data and provides the flexibility to predict the binding affinity of these peptides using one of the following methods:
+The `Mutant_peptide_prediction` directory is designed to work with mutation data. It can derived from the TORSMIC package or your own mutation data. It generates mutant peptides from the given mutation data and provides the flexibility to predict the binding affinity of these peptides using one of the following methods:
 
 1. MHC_flurry 2.0: A state-of-the-art tool for predicting peptide-MHC binding affinity.
 2. NetMhcpan4.1: Another widely used tool for predicting peptide-MHC binding.
@@ -15,7 +15,7 @@ Additionally, we have developed our own custom model for peptide-MHC binding pre
 
 ### Usage
 
-1. Prepare the mutation data in the required format. Ensure that the mutation data includes the following columns: Consequence, Sample_name, Gene_name, Ensembl_transcripts, and Total_protein_change. If the mutation data comes from TOSMIC, the script will create mutant peptides from somatic mutations only.
+1. Prepare the mutation data in the required format. Ensure that the mutation data includes the following columns: Consequence, Sample_name, Gene_name, Ensembl_transcripts, and Total_protein_change. If the mutation data comes from TORSMIC, the script will create mutant peptides from somatic mutations only.
 
 2. Run the `useSomaticCreateMutPep.py` script to generate mutant peptides from the mutation data. The script will generate several output files:
 
